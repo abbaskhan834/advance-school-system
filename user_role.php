@@ -81,46 +81,106 @@ $stmt->execute();
 
         <div class="content-body">
 
-            <div class="container-fluid">
-                <!-- Button trigger modal -->
-                <div class="text-right">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        Add User Role
-                    </button>
-                </div>
+    <div class="container-fluid">
+        <!-- Button trigger modal -->
+        <div class="text-right">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add User Role
+            </button>
+        </div>
 
-                <div class="col-12" style="margin-top: 20px;">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">User Role</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example2" class="display" style="width:100%">
-                                    <thead>
-                                        <tr style="color: black">
-                                            <th>id</th>
-                                            <th>User Role</th>
-                                            <th>Edit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                          $count = 1; 
-                                          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                                           ?>
-                                        <tr>
-                                            <td><?= $count++ ?></td>
-                                            <td><?= $row['role_name'] ?></td>
-                                            <td>
-                                                <a href="edit_users_role?id=<?= $row['id'] ?>">
-                                                    <i class="fa fa-edit btn btn-success"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            } 
-                                          ?>
+        <div class="col-12" style="margin-top: 20px;">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">User Role</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="example2" class="display" style="width:100%">
+                            <thead>
+                                <tr style="color: black">
+                                    <th>id</th>
+                                    <th>User Role</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    <?php
+                      $count = 1; 
+                      while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                       ?>
+                    <tr>
+                        <td><?= $count++ ?></td>
+                        <td><?= $row['role_name'] ?></td>
+                        <td>
+                     <button type="button" class="btn btn-success"onclick="openEditModal(
+                        '<?= $row['id'] ?>',
+                        '<?= $row['role_name'] ?>'
+                        )">
+                    <i class="fa fa-edit"></i>
+                    </button>
+                    </td>
+
+    <script>
+         function openEditModal(id , role_name) {
+         // id hidden input me set kar dein
+         document.getElementById("user_id").value = id;
+         document.getElementById("role_name").value = role_name;
+        
+         // modal open
+         $('#editModal').modal('show'); 
+        }
+    </script>
+    
+<div class="modal fade" id="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+    <form method="POST" action="edit_users_role.php">
+
+        <div class="modal-body">
+
+            <input type="hidden" name="user_id" id="user_id">
+
+            <input type="text" name="role_name" id="role_name" class="form-control">
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" onclick="updateRole()">
+                Update
+            </button>
+             </div>
+            </form>
+         </div>
+        </div>
+        </div>
+        </tr>
+         <?php
+             } 
+           ?>
+<!-- AJAX CALL FOR UPDATE USER ROLE -->
+<script>
+function updateRole() {
+
+    let id = document.getElementById("user_id").value;
+    let role_name = document.getElementById("role_name").value;
+
+    $.ajax({
+        url: "edit_users_role.php",
+        type: "POST",
+        data: {
+            id: id,
+            role_name: role_name
+        },
+        success: function(response) {
+            // alert("Updated Successfully");
+            $('#editModal').modal('hide');
+            location.reload();
+        }
+    });
+}
+</script>
                                     </tbody>
                                 </table>
                             </div>
@@ -152,7 +212,6 @@ $stmt->execute();
             </div>
         </div>
     </div>
-
     </div>
     <?php
        include 'config/footer.php'; 
