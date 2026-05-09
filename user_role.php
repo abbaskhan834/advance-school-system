@@ -101,11 +101,13 @@ $stmt->execute();
                                 <tr style="color: black">
                                     <th>id</th>
                                     <th>User Role</th>
-                                    <th>Edit</th>
+                                    <th style="padding-left:30px">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
                     <?php
+                    $page = "user_role.php";
+                    $table = "users_role";
                       $count = 1; 
                       while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                        ?>
@@ -113,12 +115,11 @@ $stmt->execute();
                         <td><?= $count++ ?></td>
                         <td><?= $row['role_name'] ?></td>
                         <td>
-                     <button type="button" class="btn btn-success"onclick="openEditModal(
+                     <a href="" class="btn btn-success m-1"onclick="openEditModal(
                         '<?= $row['id'] ?>',
                         '<?= $row['role_name'] ?>'
-                        )">
-                    <i class="fa fa-edit"></i>
-                    </button>
+                        )"><i class="fa fa-edit"></i></a>
+                        <a href="generic_delete?page=<?=$page?>&table=<?=$table?>&id=<?= $row['id']?>"><i class="fa fa-trash btn btn-danger"></i></a>
                     </td>
 
     <script>
@@ -136,7 +137,7 @@ $stmt->execute();
     <div class="modal-dialog">
         <div class="modal-content">
 
-    <form method="POST" action="edit_users_role.php">
+    <form method="POST" action="edit_users_role">
 
         <div class="modal-body">
 

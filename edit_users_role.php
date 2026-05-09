@@ -1,5 +1,5 @@
 <?php
-include "config/conn.php"; // yahan PDO connection hoga
+include "config/conn.php"; 
 
 $id = $_POST['id'];
 $role_name = $_POST['role_name'];

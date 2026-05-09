@@ -23,8 +23,6 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
     $password = password_hash($password, PASSWORD_BCRYPT);
 
-    
-
     /* IMAGE UPLOAD */
     $profile_pic = "";
 
@@ -210,8 +208,9 @@ if (isset($_POST['submit'])) {
 
                                     <div class="col-md-6 mb-3">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" name="email" placeholder="Email"
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
                                             required>
+                                            <small id="emailError" style="color:red;"></small>
                                     </div>
                                 </div>
 
@@ -248,7 +247,7 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <!-- Button -->
-                                <center><button type="submit" name="submit" class="btn btn-secondary btn-block col-2">
+                                <center><button type="submit" name="submit"  id="submitBtn" class="btn btn-secondary btn-block col-2">
                                         Submit
                                     </button></center>
                             </form>
@@ -266,9 +265,15 @@ if (isset($_POST['submit'])) {
     <?php
     include 'config/js_links.php'; 
      ?>
+
+
 </body>
 
 </html>
+
+
+
+
 <script>
 
 function deleteConfirm(el) {
@@ -290,7 +295,6 @@ function deleteConfirm(el) {
   return false;   
 }
 </script>
-
 
  </script>
   <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted') { ?>
