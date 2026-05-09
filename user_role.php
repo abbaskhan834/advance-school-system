@@ -115,11 +115,11 @@ $stmt->execute();
                         <td><?= $count++ ?></td>
                         <td><?= $row['role_name'] ?></td>
                         <td>
-                     <a href="" class="btn btn-success m-1"onclick="openEditModal(
+                     <a href="javascript:void(0)" class="btn btn-success m-1"onclick="openEditModal(
                         '<?= $row['id'] ?>',
                         '<?= $row['role_name'] ?>'
                         )"><i class="fa fa-edit"></i></a>
-                        <a href="generic_delete?page=<?=$page?>&table=<?=$table?>&id=<?= $row['id']?>"><i class="fa fa-trash btn btn-danger"></i></a>
+                        <a href="generic_delete?page=<?=$page?>&table=<?=$table?>&id=<?= $row['id']?>" onclick="return deleteConfirm(this);"><i class="fa fa-trash btn btn-danger"></i></a>
                     </td>
 
     <script>
@@ -225,3 +225,40 @@ function updateRole() {
 </body>
 
 </html>
+<script>
+
+function deleteConfirm(el) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "you want to delete this user!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = el.href; 
+    }
+  });
+
+  return false;   
+}
+</script>
+
+ </script>
+  <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted') { ?>
+  <script>
+  Swal.fire({
+    icon: 'success',
+    title: 'Deleted!',
+    text: 'User deleted successfully',
+    confirmButtonColor: '#28a745'
+  });
+  </script>
+  <?php 
+  } 
+  ?>
+
+</script>

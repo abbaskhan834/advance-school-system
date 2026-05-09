@@ -81,11 +81,11 @@ if (isset($_POST['submit'])) {
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
                                             <input type="email" class="form-control" name="email"
-                                                value="khan@534571gmail.com">
+                                                value="khan@200gmail.com">
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Password</strong></label>
-                                            <input type="password" class="form-control" name="password" value="123">
+                                            <input type="password" class="form-control" name="password" value="1234">
                                         </div>
                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">

@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>profile</th>
-                                            <th>edit</th>
+                                            <th style="padding-left:50px">edit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -209,7 +209,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-6 mb-3">
                                         <label>Email</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                            required>
+                                            required value="">
                                             <small id="emailError" style="color:red;"></small>
                                     </div>
                                 </div>
