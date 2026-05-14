@@ -118,20 +118,19 @@ $stmt->execute();
                      <a href="javascript:void(0)" class="btn btn-success m-1"onclick="openEditModal(
                         '<?= $row['id'] ?>',
                         '<?= $row['role_name'] ?>'
-                        )"><i class="fa fa-edit"></i></a>
-                        <a href="generic_delete?page=<?=$page?>&table=<?=$table?>&id=<?= $row['id']?>" onclick="return deleteConfirm(this);"><i class="fa fa-trash btn btn-danger"></i></a>
+                        )"><i class="fa fa-edit"></i></a>  
                     </td>
 
-    <script>
-         function openEditModal(id , role_name) {
-         // id hidden input me set kar dein
-         document.getElementById("user_id").value = id;
-         document.getElementById("role_name").value = role_name;
-        
-         // modal open
-         $('#editModal').modal('show'); 
-        }
-    </script>
+                    <script>
+                         function openEditModal(id , role_name) {
+                         // id hidden input me set kar dein
+                         document.getElementById("user_id").value = id;
+                         document.getElementById("role_name").value = role_name;
+
+                         // modal open
+                         $('#editModal').modal('show'); 
+                        }
+                    </script>
     
 <div class="modal fade" id="editModal">
     <div class="modal-dialog">
@@ -144,7 +143,6 @@ $stmt->execute();
             <input type="hidden" name="user_id" id="user_id">
 
             <input type="text" name="role_name" id="role_name" class="form-control">
-
         </div>
 
         <div class="modal-footer">
@@ -161,27 +159,27 @@ $stmt->execute();
              } 
            ?>
 <!-- AJAX CALL FOR UPDATE USER ROLE -->
-<script>
-function updateRole() {
-
-    let id = document.getElementById("user_id").value;
-    let role_name = document.getElementById("role_name").value;
-
-    $.ajax({
-        url: "edit_users_role.php",
-        type: "POST",
-        data: {
-            id: id,
-            role_name: role_name
-        },
-        success: function(response) {
-            // alert("Updated Successfully");
-            $('#editModal').modal('hide');
-            location.reload();
+        <script>
+        function updateRole() {
+        
+            let id = document.getElementById("user_id").value;
+            let role_name = document.getElementById("role_name").value;
+        
+            $.ajax({
+                url: "edit_users_role.php",
+                type: "POST",
+                data: {
+                    id: id,
+                    role_name: role_name
+                },
+                success: function(response) {
+                    // alert("Updated Successfully");
+                    $('#editModal').modal('hide');
+                    location.reload();
+                }
+            });
         }
-    });
-}
-</script>
+        </script>
                                     </tbody>
                                 </table>
                             </div>
@@ -214,7 +212,7 @@ function updateRole() {
         </div>
     </div>
     </div>
-    <?php
+      <?php
        include 'config/footer.php'; 
         ?>
 
@@ -225,40 +223,3 @@ function updateRole() {
 </body>
 
 </html>
-<script>
-
-function deleteConfirm(el) {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: "you want to delete this user!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      window.location.href = el.href; 
-    }
-  });
-
-  return false;   
-}
-</script>
-
- </script>
-  <?php if (isset($_GET['msg']) && $_GET['msg'] == 'deleted') { ?>
-  <script>
-  Swal.fire({
-    icon: 'success',
-    title: 'Deleted!',
-    text: 'User deleted successfully',
-    confirmButtonColor: '#28a745'
-  });
-  </script>
-  <?php 
-  } 
-  ?>
-
-</script>
