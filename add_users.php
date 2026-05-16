@@ -13,6 +13,24 @@ $userStmt->execute();
 $roleStmt = $conn->prepare("SELECT * FROM users_role");
 $roleStmt->execute();
 
+if(isset($_POST['update_user'])){
+
+    $id    = $_POST['edit_id'];
+    $name  = $_POST['edit_name'];
+    $email = $_POST['edit_email'];
+    $phone = $_POST['edit_phone'];
+
+    $stmt = $conn->prepare("
+        UPDATE users 
+        SET  full_name=?, email=?, phone=? 
+        WHERE id=?
+    ");
+
+    $stmt->execute([ $name, $email, $phone, $id]);
+
+    header("Location:congrats?goto_page=add_users&message=success--User updated successfully");
+    exit;
+}
 
 if (isset($_POST['submit'])) {
 
@@ -151,9 +169,17 @@ if (isset($_POST['submit'])) {
                                                     style="height: 50px ; width: 50px">
                                                 </td>
                                             <td>
-                                                <a href="edit_add_users?id=<?=$row['id'] ?>">
-                                                    <i class="fa fa-edit btn btn-primary"></i>
-                                                </a>
+                                        <button 
+                                        type="button"
+                                        class="btn btn-primary editBtn"
+                                        data-id="<?= $row['id'] ?>"
+                                        data-name="<?= $row['full_name'] ?>"
+                                        data-email="<?= $row['email'] ?>"
+                                        data-phone="<?= $row['phone'] ?>"
+                                        data-toggle="modal"
+                                        data-target="#editUserModal">
+                                        <i class="fa fa-edit"></i>
+                                        </button>
                                                 <a href="generic_delete.php?page=<?=$page?>&table=<?=$table?>&id=<?=$row['id']?>" onclick="return deleteConfirm(this);">
                                                     <i class="fa fa-trash btn btn-danger"></i>
                                                 </a>
@@ -232,11 +258,8 @@ if (isset($_POST['submit'])) {
                                         <?php while($fetch = $roleStmt->fetch(PDO::FETCH_ASSOC)) { ?>
                                         <option value="<?= $fetch['id'] ?>">
                                             <?= $fetch['role_name'] ?>
-
                                         </option>
-
                                         <?php } ?>
-
                                     </select>
                                 </div>
 
@@ -256,6 +279,46 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         </div>
+
+        <!-- USER EDIT MODAL -->
+        <div class="modal fade" id="editUserModal" tabindex="-1">
+        <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+             <h5>Edit User</h5>
+             <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <form method="POST">
+                    <input type="hidden" name="edit_id" id="edit_id">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="edit_name" id="edit_name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="edit_email" id="edit_email" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" name="edit_phone" id="edit_phone" class="form-control">
+                    </div>
+                    <div class="text-right">
+                    <button type="submit" name="update_user" class="btn btn-success">
+                        Update
+                </button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
         <?php
        include 'config/footer.php'; 
         ?>
@@ -266,7 +329,19 @@ if (isset($_POST['submit'])) {
     include 'config/js_links.php'; 
      ?>
 
+<script>
 
+$('.editBtn').click(function(){
+
+    $('#edit_id').val($(this).data('id'));
+    $('#edit_name').val($(this).data('name'));
+    $('#edit_email').val($(this).data('email'));
+    $('#edit_phone').val($(this).data('phone'));
+    
+
+});
+
+</script>
 </body>
 
 </html>

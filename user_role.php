@@ -2,8 +2,6 @@
 include 'config/conn.php';
 $MSG = $_GET['message'] ?? '';
 
-
-
 if (isset($_POST['submit'])) {
      $rollName = $_POST['role_name'];
 
@@ -27,7 +25,7 @@ if (isset($_POST['submit'])) {
        header("location:congrats?goto_page=user_role&message=success--Role submited successfully.");
         exit;
      } catch (Exception $e) {
-       header("location:congrats?goto_page=user_role&message=error--Something wents wrong, Please try leter.");
+       header("location:congrats?goto_page=user_role&message=error--Something went wrong, Please try later.");
        exit;
      }
 
@@ -39,10 +37,7 @@ $stmt->execute();
  ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -81,7 +76,7 @@ $stmt->execute();
 
         <div class="content-body">
 
-    <div class="container-fluid">
+        <div class="container-fluid">
         <!-- Button trigger modal -->
         <div class="text-right">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -132,54 +127,54 @@ $stmt->execute();
                         }
                     </script>
     
-<div class="modal fade" id="editModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+                <div class="modal fade" id="editModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
 
-    <form method="POST" action="edit_users_role">
+                    <form method="POST" action="edit_users_role">
 
-        <div class="modal-body">
+                        <div class="modal-body">
 
-            <input type="hidden" name="user_id" id="user_id">
+                            <input type="hidden" name="user_id" id="user_id">
 
-            <input type="text" name="role_name" id="role_name" class="form-control">
-        </div>
+                            <input type="text" name="role_name" id="role_name" class="form-control">
+                        </div>
 
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" onclick="updateRole()">
-                Update
-            </button>
-             </div>
-            </form>
-         </div>
-        </div>
-        </div>
-        </tr>
-         <?php
-             } 
-           ?>
-<!-- AJAX CALL FOR UPDATE USER ROLE -->
-        <script>
-        function updateRole() {
-        
-            let id = document.getElementById("user_id").value;
-            let role_name = document.getElementById("role_name").value;
-        
-            $.ajax({
-                url: "edit_users_role.php",
-                type: "POST",
-                data: {
-                    id: id,
-                    role_name: role_name
-                },
-                success: function(response) {
-                    // alert("Updated Successfully");
-                    $('#editModal').modal('hide');
-                    location.reload();
-                }
-            });
-        }
-        </script>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" onclick="updateRole()">
+                                Update
+                            </button>
+                             </div>
+                            </form>
+                         </div>
+                        </div>
+                        </div>
+                        </tr>
+                         <?php
+                             } 
+                           ?>
+        <!-- AJAX CALL FOR UPDATE USER ROLE -->
+                     <script>
+                     function updateRole() {
+
+                         let id = document.getElementById("user_id").value;
+                         let role_name = document.getElementById("role_name").value;
+
+                         $.ajax({
+                             url: "edit_users_role.php",
+                             type: "POST",
+                             data: {
+                                 id: id,
+                                 role_name: role_name
+                             },
+                             success: function(response) {
+                                 header("location:congrats?goto_page=user_role&message=success--user added successfully")
+                                 $('#editModal').modal('hide');
+                                 location.reload();
+                             }
+                         });
+                     }
+                     </script>
                                     </tbody>
                                 </table>
                             </div>

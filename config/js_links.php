@@ -1,5 +1,6 @@
  <script src="./js/jquery-4.0.0.min.js"></script>
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function showSuccessErrorMsg(status, msg) {
         // Purani classes aur alerts saaf karein
