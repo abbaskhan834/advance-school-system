@@ -20,9 +20,7 @@ if(isset($_POST['update_user'])){
     $email = $_POST['edit_email'];
     $phone = $_POST['edit_phone'];
 
-    $stmt = $conn->prepare("
-        UPDATE users 
-        SET  full_name=?, email=?, phone=? 
+    $stmt = $conn->prepare(" UPDATE users SET  full_name=?, email=?, phone=? 
         WHERE id=?
     ");
 
