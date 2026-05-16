@@ -96,7 +96,7 @@ $stmt->execute();
                                 <tr style="color: black">
                                     <th>id</th>
                                     <th>User Role</th>
-                                    <th style="padding-left:30px">Edit</th>
+                                    <th style="padding-left:1%">Edit</th>
                                 </tr>
                             </thead>
                             <tbody>
